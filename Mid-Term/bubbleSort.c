@@ -1,3 +1,9 @@
+//
+// Created by Young Soo Hwang on 2022/04/20.
+//
+
+#include <stdio.h>
+
 void bubbleSort(int *a, int len)
 {
 	int	t;
@@ -21,5 +27,21 @@ void bubbleSort(int *a, int len)
 
 int main() 
 {
+	int	arr[10];
+	int i;
+
+	i = -1;
+	while (++i < 10)
+	{
+		arr[i] = 10 - i;
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+	bubbleSort(arr, 10);
+	while (--i > -1)
+	{
+		printf("%d ", arr[9 - i]);
+	}
+	printf("\n");
 	return (0);
 }
