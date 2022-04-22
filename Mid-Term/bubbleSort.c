@@ -4,22 +4,22 @@
 
 #include <stdio.h>
 
-void bubbleSort(int *a, int len)
+void bubbleSort(int *arr, int n)
 {
 	int	t;
 	int	i;
 	int	j;
 
 	t = -1;
-	for(i = 0; i < len; i++)
+	for(i = 0; i < n; i++)
 	{
-		for (j = 0;  j < len - i - 1; j++)
+		for (j = 0;  j < n - i - 1; j++)
 		{
-			if (a[j] > a[j + 1])
+			if (arr[j] > arr[j + 1])
 			{
-				t = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = t;
+				t = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = t;
 			}
         }
 	}

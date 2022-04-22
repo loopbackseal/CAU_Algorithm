@@ -4,19 +4,19 @@
 
 #include <stdio.h>
 
-void insertionSort(int *a, int len) {
+void insertionSort(int *arr, int n) {
 	int i;
 	int j;
 	int key;
 
 	j = 0;
-	while (++j < len)
+	while (++j < n)
 	{
-		key = a[j];
+		key = arr[j];
 		i = j;
-		while (--i >= 0 && a[i] > key)
-			a[i + 1] = a[i];
-		a[i + 1] = key;
+		while (--i >= 0 && arr[i] > key)
+			arr[i + 1] = arr[i];
+		arr[i + 1] = key;
 	}
 }
 
