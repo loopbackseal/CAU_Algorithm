@@ -5,7 +5,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-void insertionSort(int *arr, int n) {
+void insertionSort(int *arr, int n)
+{
 	int i;
 	int j;
 	int key;
@@ -21,7 +22,8 @@ void insertionSort(int *arr, int n) {
 	}
 }
 
-long long timestamp() {
+long long timestamp()
+{
 	long long milliseconds;
 
 	struct timeval te; 
