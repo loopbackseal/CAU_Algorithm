@@ -1,51 +1,68 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void	merge(int list[], int left, int mid, int right)
+void	conquer(int arr[], int arr1[], int arr2[], int left, int len1, int len2)
 {
-	int	i, j, k, l;
+	int	i;
+	int	j;
 
-	i = left;
-	j = mid+1;
-	k = left;
-  /* 분할 정렬된 list의 합병 */
-	while (i <= mid && j <= right)
+	i = 0;
+	j = 0;
+	while (i < len1 && j < len2)
 	{
-		if (list[i] <= list[j])
-			sorted[k++] = list[i++];
+		if (arr1[i] < arr2[j])
+			arr[left] = arr1[i++];
 		else
-			sorted[k++] = list[j++];
+			arr[left] = arr2[j++];
+		++left;
 	}
-
-  // 남아 있는 값들을 일괄 복사
-	if (i > mid)
+	while (i < len1)
 	{
-		for (l = j; l <= right; l++)
-			sorted[k++] = list[l];
+		arr[left] = arr1[i];
+		++i;
+		++left;
 	}
-  // 남아 있는 값들을 일괄 복사
-	else
+	while (j < len2)
 	{
-		for( l = i; l <= mid; l++)
-			sorted[k++] = list[l];
-	}
-
-  // 배열 sorted[](임시 배열)의 리스트를 배열 list[]로 재복사
-	for (l = left; l <= right; l++)
-	{
-		list[l] = sorted[l];
+		arr[left] = arr2[j];
+		++j;
+		++left;
 	}
 }
 
-void	mergeSort(int list[], int left, int right)
+void	divide(int arr[], int left, int mid, int right)
+{
+	int idx;
+	int	len1;
+	int	len2;
+	int	*arr1;
+	int	*arr2;
+
+	len1 = mid - left + 1;
+	len2 = right - mid;
+	arr1 = malloc(sizeof(int) * len1);
+	arr2 = malloc(sizeof(int) * len2);
+	if (arr1 == 0 || arr2 == 0)
+		return ;
+	idx = -1;
+	while (++idx < len1)
+		arr1[idx] = arr[idx + left];
+	idx = -1;
+	while (++idx < len2)
+		arr2[idx] = arr[idx + mid + 1];
+	conquer(arr, arr1, arr2, left, len1, len2);
+}
+
+void	mergeSort(int arr[], int left, int right)
 {
 	int	mid;
 
-	if (left < right)
+	mid = (left + right) / 2;
+	if (right - left > 0)
 	{
-		mid = (left + right) / 2 // 중간 위치를 계산하여 리스트를 균등 분할 -분할(Divide)
-		mergeSort(list, left, mid); // 앞쪽 부분 리스트 정렬 -정복(Conquer)
-		mergeSort(list, mid+1, right); // 뒤쪽 부분 리스트 정렬 -정복(Conquer)
-		merge(list, left, mid, right); // 정렬된 2개의 부분 배열을 합병하는 과정 -결합(Combine)
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid + 1, right);
+		divide(arr, left, mid, right);
 	}
 }
 
@@ -61,7 +78,7 @@ int main()
 		printf("%d ", arr[i]);
 	}
 	printf("\n");
-	mergeSort(arr, 0, 10);
+	mergeSort(arr, 0, 9);
 	while (--i > -1)
 	{
 		printf("%d ", arr[9 - i]);
@@ -69,3 +86,4 @@ int main()
 	printf("\n");
 	return (0);
 }
+
