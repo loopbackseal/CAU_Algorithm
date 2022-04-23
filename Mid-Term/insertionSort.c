@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <sys/time.h>
 
 void insertionSort(int *arr, int n) {
 	int i;
@@ -20,24 +21,39 @@ void insertionSort(int *arr, int n) {
 	}
 }
 
+long long timestamp() {
+	long long milliseconds;
+
+	struct timeval te; 
+	gettimeofday(&te, NULL); // get current time
+	milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // calculate milliseconds
+    //printf("milliseconds: %lld\n", milliseconds);
+    return milliseconds;
+}
+
 int main()
 {
-	int	arr[10];
-	int i;
+	int			arr[10000];
+	int 		i;
+	long long	startTime;
+	long long	endTime;
 
 	i = -1;
-	while (++i < 10)
+	while (++i < 10000)
 	{
-		arr[i] = 10 - i;
+		arr[i] = 10000 - i;
 		printf("%d ", arr[i]);
 	}
 	printf("\n");
-	insertionSort(arr, 10);
+	startTime = timestamp();
+	insertionSort(arr, 10000);
+	endTime = timestamp();
 	while (--i > -1)
 	{
-		printf("%d ", arr[9 - i]);
+		printf("%d ", arr[9999 - i]);
 	}
 	printf("\n");
+	printf("time: %lld\n", endTime - startTime);
 	return (0);
 }
 
