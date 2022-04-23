@@ -51,6 +51,8 @@ void	divide(int arr[], int left, int mid, int right)
 	while (++idx < len2)
 		arr2[idx] = arr[idx + mid + 1];
 	conquer(arr, arr1, arr2, left, len1, len2);
+	free(arr1);
+	free(arr2);
 }
 
 void	mergeSort(int arr[], int left, int right)
