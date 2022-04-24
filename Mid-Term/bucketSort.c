@@ -33,7 +33,10 @@ void	bucketSort(int arr[], int size, int n)
 	j = 0;
 	while (j < size)
 	{
-		tmp = arr[j] / 20;
+		if (arr[j] == size)
+			tmp = arr[j] / 20 - 1;
+		else
+			tmp = arr[j] / 20;
 		buckets[tmp][counts[tmp]] = arr[j];
 		j++;
 		counts[tmp]++;
@@ -44,7 +47,7 @@ void	bucketSort(int arr[], int size, int n)
 	{
 		tmp = counts[k];
 		insertionSort(buckets[k], tmp);
-		while (--tmp > 0)
+		while (tmp-- > 0)
 		{
 			arr[idx++] = buckets[k][counts[k] - 1 - tmp];
 		}
@@ -63,7 +66,7 @@ int main()
 		arr[i] = 1000 - i;
 		printf("%d ", arr[i]);
 	}
-	printf("\n");
+	printf("\n\n");
 	bucketSort(arr, 1000, 50);
 	while (--i > -1)
 	{
