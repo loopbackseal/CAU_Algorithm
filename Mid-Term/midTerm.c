@@ -156,6 +156,21 @@ void	quickSort(int arr[], int start, int end)
 	quickSort(arr, right + 1, end);
 }
 
+int	countPow(int num)
+{
+	int i;
+	int ten;
+
+	i = 0;
+	ten = 1;
+	while (num / ten >= 10)
+	{
+		ten *= 10;
+		i++;
+	}
+	return (i);
+}
+
 int	tenPow(int count)
 {
 	int	i = 0;
@@ -215,7 +230,7 @@ void	radixSort(int arr[], int size, int count)
 
 void	bucketSort(int arr[], int size, int n)
 {
-	int	buckets[n][size];
+	int	**buckets;
 	int	counts[n];
 	int tmp;
 	int	idx;
@@ -223,6 +238,9 @@ void	bucketSort(int arr[], int size, int n)
 	int	j;
 	int	k;
 
+	buckets = malloc(sizeof(int *) * n);
+	for (int l = 0; l < n; l++)
+		buckets[l] = malloc(sizeof(int) * size);
 	i = 0;
 	while (i < n)
 		counts[i++] = 0;
@@ -253,67 +271,166 @@ void	bucketSort(int arr[], int size, int n)
 
 int main()
 {
-	int	arr[1000];
-	int i;
+	int			arr[10000];
+	int			size[3];
+	int 		i;
+	int 		j;
+	int 		k;
+	long long	result[18];
+	long long	start;
+	long long	end;
+	char		*sorts[6];
 
+	size[0] = 1000;
+	size[1] = 5000;
+	size[2] = 10000;
+	sorts[0] = "bubble";
+	sorts[1] = "insertion";
+	sorts[2] = "merge";
+	sorts[3] = "quick";
+	sorts[4] = "radix";
+	sorts[5] = "bucket";
+	j = -1;
+	k = -1;
+	while (++j < 3)
+	{
+		i = -1;
+		printf("\n\nsize: %d\n", size[j]);
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+			if (j == 0)
+			{
+				if (i % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[i]);
+			}
+		}
+		printf("\n\nbubble sort with %d: ", size[j]);
+		start = timestamp();
+		bubbleSort(arr, size[j]);
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+		i = -1;
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+		}
+		printf("\n\ninsertion sort with %d: ", size[j]);
+		start = timestamp();
+		insertionSort(arr, size[j]);
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+		i = -1;
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+		}
+		printf("\n\nmerge sort with %d: ", size[j]);
+		start = timestamp();
+		mergeSort(arr, 0, size[j] - 1);
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+		i = -1;
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+		}
+		printf("\n\nquick sort with %d: ", size[j]);
+		start = timestamp();
+		quickSort(arr, 0, size[j] - 1);
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+		i = -1;
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+		}
+		printf("\n\nradix sort with %d: ", size[j]);
+		start = timestamp();
+		radixSort(arr, size[j], countPow((size[j])));
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+		i = -1;
+		while (++i < size[j])
+		{
+			arr[i] = size[j] - i;
+		}
+		printf("\n\nbucket sort with %d: ", size[j]);
+		start = timestamp();
+		bucketSort(arr, size[j], size[j] / 20);
+		end = timestamp();
+		result[++k] = end - start;
+		printf("%lld\n", result[k]);
+		if (j == 0)
+		{
+			while (--i > -1)
+			{
+				if ((i + 1) % 40 == 0)
+					printf("\n");
+				printf("%4d ", arr[size[j] - 1 - i]);
+			}
+		}
+	}
+	printf("\n%10s %10s %10s %10s %10s %10s %10s\n", "size\\sort", sorts[0], sorts[1], sorts[2], sorts[3], sorts[4], sorts[5]);
 	i = -1;
-	while (++i < 1000)
+	while (++i < 3)
 	{
-		arr[i] = 1000 - i;
-		printf("%d ", arr[i]);
-	}
-	printf("\n\n");
-	bubbleSort(arr, 1000);
-	while (--i > -1)
-	{
-		printf("%d ", arr[999 - i]);
-	}
-	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-	}
-	printf("\n\n");
-	insertionSort(arr, 1000);
-	while (--i > -1)
-	{
-		printf("%d ", arr[999 - i]);
-	}
-	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-	}
-	printf("\n\n");
-	mergeSort(arr, 0, 999);
-	while (--i > -1)
-	{
-		printf("%d ", arr[999 - i]);
-	}
-	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-	}
-	printf("\n\n");
-	quickSort(arr, 0, 999);
-	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-	}
-	printf("\n\n");
-	radixSort(arr, 1000, 3);
-	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-	}
-	printf("\n\n");
-	bucketSort(arr, 1000, 50);
-	while (--i > -1)
-	{
-		printf("%d ", arr[999 - i]);
+		j = -1;
+		printf("%10d ", size[i]);
+		while (++j < 6)
+			printf("%10lld ", result[i * 6 + j]);
+		printf("\n");
 	}
 	printf("\n");
 	return (0);
