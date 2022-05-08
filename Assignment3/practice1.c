@@ -14,7 +14,7 @@ void	printList(struct LinkedList *head)
 	cur = head->next;
 	while (cur != 0)
 	{
-		printf("%d ", cur->data);
+		printf("%3d ", cur->data);
 		cur = cur->next;
 	}
 	printf("\n");
@@ -76,28 +76,32 @@ struct	LinkedList	*reverseList(struct LinkedList *head)
 int	main()
 {
 	struct	LinkedList	*head;
-	struct	LinkedList	*node1;
-	struct	LinkedList	*node2;
-	struct	LinkedList	*node3;
+	struct	LinkedList	*tmp;
 	int					i;
+	int					num;
 
 	head = malloc(sizeof(struct LinkedList));
-	node1 = malloc(sizeof(struct LinkedList));
-	node2 = malloc(sizeof(struct LinkedList));
-	node3 = malloc(sizeof(struct LinkedList));
-	if (head == 0 || node1 == 0 || node2 == 0 || node3 == 0)
+	if (head == 0)
 		return (0);
-	head->next = node1;
-	node1->data = 1;
-	node1->next = node2;
-	node2->data = 2;
-	node2->next = node3;
-	node3->data = 3;
+	tmp = head;
+	i = 0;
+	while (i < 10)
+	{
+		struct	LinkedList	*node;
+		node = malloc(sizeof(struct LinkedList));
+		if (node == 0)
+			return (0);
+		node->data = rand() % 99;
+		tmp->next = node;
+		tmp = node;
+		i++;
+	}
 	printList(head);
-	insertList(node1, 4);
-	appendList(head, 5);
+	insertList(head->next, -1);
 	printList(head);
-	removeList(node3);
+	appendList(head, -2);
+	printList(head);
+	removeList(head->next->next->next);
 	printList(head);
 	head->next = reverseList(head);
 	printList(head);
