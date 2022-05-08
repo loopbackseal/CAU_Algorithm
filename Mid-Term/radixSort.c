@@ -1,5 +1,20 @@
 #include <stdio.h>
 
+int	countPow(int num)
+{
+	int	i;
+	int	ten;
+
+	i = 0;
+	ten = 1;
+	while (num / ten >= 10)
+	{
+		ten *= 10;
+		i++;
+	}
+	return (i);
+}
+
 int	tenPow(int count)
 {
 	int	i = 0;
@@ -77,7 +92,7 @@ int main()
 		printf("%d ", arr[i]);
 	}
 	printf("\n\n");
-	radixSort(arr, 100, 2);
+	radixSort(arr, 100, countPow(100));
 	while (--i > -1)
 		printf("%d ", arr[99 - i]);
 	printf("\n");

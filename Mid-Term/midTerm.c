@@ -182,7 +182,7 @@ int	tenPow(int count)
 
 void	countingSort(int array[], int size, int pow)
 {
-	int	output[10000];
+	int	output[10001];
 	int	max = array[0] % tenPow(pow);
 	int tmp;
 	for (int i = 1; i < size; i++)
@@ -191,7 +191,7 @@ void	countingSort(int array[], int size, int pow)
 		if (tmp > max)
 			max = tmp;
 	}
-	int count[10000];
+	int count[10001];
 	for (int i = 0; i <= max; ++i)
 	{
 		count[i] = 0;
@@ -276,7 +276,7 @@ int main()
 	int 		i;
 	int 		j;
 	int 		k;
-	long long	result[18];
+	long long	result[3][6];
 	long long	start;
 	long long	end;
 	char		*sorts[6];
@@ -291,34 +291,36 @@ int main()
 	sorts[4] = "radix";
 	sorts[5] = "bucket";
 	j = -1;
-	k = -1;
 	while (++j < 3)
 	{
 		i = -1;
+		k = -1;
 		printf("\n\nsize: %d\n", size[j]);
 		while (++i < size[j])
 		{
 			arr[i] = size[j] - i;
 			if (j == 0)
 			{
-				if (i % 40 == 0)
+				if (i % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[i]);
 			}
 		}
 		printf("\n\nbubble sort with %d: ", size[j]);
 		start = timestamp();
 		bubbleSort(arr, size[j]);
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 		i = -1;
@@ -330,15 +332,16 @@ int main()
 		start = timestamp();
 		insertionSort(arr, size[j]);
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 		i = -1;
@@ -350,15 +353,16 @@ int main()
 		start = timestamp();
 		mergeSort(arr, 0, size[j] - 1);
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 		i = -1;
@@ -370,15 +374,16 @@ int main()
 		start = timestamp();
 		quickSort(arr, 0, size[j] - 1);
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 		i = -1;
@@ -390,15 +395,16 @@ int main()
 		start = timestamp();
 		radixSort(arr, size[j], countPow((size[j])));
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 		i = -1;
@@ -410,15 +416,16 @@ int main()
 		start = timestamp();
 		bucketSort(arr, size[j], size[j] / 20);
 		end = timestamp();
-		result[++k] = end - start;
-		printf("%lld\n", result[k]);
+		result[j][++k] = end - start;
+		printf("%lld\n", result[j][k]);
 		if (j == 0)
 		{
 			while (--i > -1)
 			{
-				if ((i + 1) % 40 == 0)
+				if ((size[j] - i - 1) % 800 == 0)
 					printf("\n");
-				printf("%4d ", arr[size[j] - 1 - i]);
+				if (i % 20 == 0)
+					printf("%4d ", arr[size[j] - 1 - i]);
 			}
 		}
 	}
@@ -429,7 +436,7 @@ int main()
 		j = -1;
 		printf("%10d ", size[i]);
 		while (++j < 6)
-			printf("%10lld ", result[i * 6 + j]);
+			printf("%10lld ", result[i][j]);
 		printf("\n");
 	}
 	printf("\n");

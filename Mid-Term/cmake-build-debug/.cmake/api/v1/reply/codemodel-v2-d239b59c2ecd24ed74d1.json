@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Mid_Term",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Bid_Term::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Bid_Term-Debug-4ef73ddb4b25c0bc0385.json",
+					"name" : "Bid_Term",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Mid_Term::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Mid_Term-Debug-b04ee9b072f535b65b0c.json",
+					"name" : "Mid_Term",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/youngsoohwang/Developer/CAU_Algorithm/Mid-Term/cmake-build-debug",
+		"source" : "/Users/youngsoohwang/Developer/CAU_Algorithm/Mid-Term"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

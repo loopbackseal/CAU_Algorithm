@@ -57,20 +57,20 @@ void	bucketSort(int arr[], int size, int n)
 
 int main()
 {
-	int	arr[1000];
+	int	arr[10000];
 	int i;
 
 	i = -1;
-	while (++i < 1000)
-	{
-		arr[i] = 1000 - i;
-		printf("%d ", arr[i]);
-	}
+//	while (++i < 10000)
+//	{
+//		arr[i] = 10000 - i;
+//		printf("%d ", arr[i]);
+//	}
 	printf("\n\n");
-	bucketSort(arr, 1000, 50);
+	bucketSort(arr, 1000, 500);
 	while (--i > -1)
 	{
-		printf("%d ", arr[999 - i]);
+		printf("%d ", arr[9999 - i]);
 	}
 	printf("\n");
 	return (0);
