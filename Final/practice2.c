@@ -11,7 +11,7 @@ typedef struct vertex
 
 typedef	struct	Node
 {
-	V	v;
+	int				v;
 	struct	Node	*next;
 } Node;
 
@@ -28,7 +28,7 @@ void initQueue(Queue *queue)
 	queue->count = 0;
 }
 
-void	enqueue(Queue *queue, V v)
+void	enqueue(Queue *queue, int v)
 {
 	Node *newNode = (Node *)malloc(sizeof(Node));
 	newNode->v = v;
@@ -46,15 +46,15 @@ void	enqueue(Queue *queue, V v)
 	queue->count++;
 }
 
-V dequeue(Queue *queue)
+int dequeue(Queue *queue)
 {
-	V		v;
+	int		v;
 	Node	*ptr;
 
 	if (queue->count == 0)
 	{
 		printf("Queue is empty!\n");
-		return (v);
+		return (-1);
 	}
 	ptr = queue->front;
 	v = ptr->v;
@@ -77,41 +77,63 @@ int	main(void)
 		{4, 5, 7, -1},
 		{5, 6, -1}
 	};
-	V	r,v,s,w,t,x,u,y;
-	V	vertex[8] = {r, v, s, w, t, x, u, y};
+	V		r,v,s,w,t,x,u,y;
+	r.idx = 0;
+	r.color = 0;
+	r.d = -1;
+	v.idx = 1;
+	v.color = 0;
+	v.d = -1;
+	s.idx = 2;
+	w.idx = 3;
+	w.color = 0;
+	w.d = -1;
+	t.idx = 4;
+	t.color = 0;
+	t.d = -1;
+	x.idx = 5;
+	x.color = 0;
+	x.d = -1;
+	u.idx = 6;
+	u.color = 0;
+	u.d = -1;
+	y.idx = 7;
+	y.color = 0;
+	y.d = -1;
+	V		vertex[8] = {r, v, s, w, t, x, u, y};
+	char	name[8] = {'r', 'v', 's', 'w', 't', 'x', 'u', 'y'};
 	Queue	q;
 	initQueue(&q);
 	// implement BFS
+	s.color = 1;
+	s.d = 0;
+	enqueue(&q, 2);
+	while (q.count != 0)
+	{
+		int tmp = dequeue(&q);
+		int	i = 0;
+		while (graph[tmp][i] != -1)
+		{
+			int idx = graph[tmp][i];
+			if (vertex[idx].color == 0)
+			{
+				vertex[idx].color = 1;
+				vertex[idx].d = vertex[tmp].d + 1;
+				vertex[idx].p = tmp;
+				enqueue(&q, idx);
+			}
+			i++;
+		}
+		vertex[tmp].color = 2;
+	}
 	int	i = 0;
 	while (i < 8)
 	{
 		V tmp = vertex[i];
-		tmp.color = 0;
-		tmp.d = -1;
-		tmp.p = -1;
-		tmp.idx = i;
+		printf("%c\n", name[i]);
+		//printf("%c :\n", name[i]);
+		printf("distance: %d, parent: %c\n", tmp.d - vertex[2].d, name[tmp.p]);
 		i++;
-	}
-	s.color = 1;
-	s.d = 0;
-	enqueue(&q, s);
-	while (q.count != 0)
-	{
-		V tmp = dequeue(&q);
-		int	i = 0;
-		while (graph[tmp.idx][i] != -1)
-		{
-			int idx = graph[tmp.idx][i];
-			if (vertex[idx].color == 0)
-			{
-				vertex[idx].color = 1;
-				vertex[idx].d = tmp.d + 1;
-				vertex[idx].p = tmp.idx;
-				enqueue(&q, vertex[idx]);
-			}
-			i++;
-		}
-		tmp.color = 2;
 	}
 	return (0);
 }
